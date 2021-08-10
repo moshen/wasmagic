@@ -1,0 +1,6 @@
+[submodule "vendor/file"]
+	path = vendor/file
+	url = https://github.com/file/file.git
+[submodule "vendor/file-examples"]
+	path = vendor/file-examples
+	url = https://github.com/file-examples-com/uploads.git

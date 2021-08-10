@@ -1,0 +1,33 @@
+{
+  "name": "wasmagic",
+  "version": "0.0.0-dev",
+  "description": "WASM compiled version of libmagic",
+  "keywords": [
+    "magic",
+    "libmagic",
+    "file",
+    "filetype",
+    "mime",
+    "mimetype",
+    "wasm"
+  ],
+  "license": "BSD-2-Clause",
+  "main": "dist/index.js",
+  "scripts": {
+    "fmt": "prettier --ignore-path .gitignore -w src/**/*.ts *.js{,on} *.md",
+    "test": "jest"
+  },
+  "author": "Colin Kennedy <moshen.colin@gmail.com>",
+  "devDependencies": {
+    "@types/emscripten": "^1.39.5",
+    "@types/glob": "^7.1.4",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.12",
+    "@zerollup/ts-transform-paths": "^1.7.18",
+    "glob": "^7.1.7",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ttypescript": "^1.5.12",
+    "typescript": "^4.3.5"
+  }
+}

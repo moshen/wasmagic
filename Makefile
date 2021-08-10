@@ -1,12 +1,12 @@
 .PHONY = test package clean clean-dist clean-vendor-file clean-submodules docker-builder-build docker-builder-run fmt
 SHELL := bash
 
-test: dist/*.js dist/test/integration/*.js
+test: dist/index.js
 	npm run test
 
-package: dist/*.js dist/test/integration/*.js dist/libmagic.LICENSE
+package: dist/*.js dist/libmagic.LICENSE
 
-dist/index.js dist/test/integration/*.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
+dist/index.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
 	npx ttsc -d
 
 dist/wasmagic.js: src/wasmagic.c dist/magic.mgc dist/libmagic.so

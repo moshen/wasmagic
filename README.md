@@ -3,8 +3,8 @@
 ## About
 
 A WebAssembly compiled version of [libmagic](https://www.darwinsys.com/file/)
-with an extremely simple API for Node. libmagic provides extremely accurate
-filetype detection.
+with a simple API for Node. WASMagic provides accurate filetype detection with
+zero prod dependencies.
 
 ## Usage
 
@@ -30,10 +30,23 @@ npm ci
 
 ---
 
-Building requires [Emscripten](https://emscripten.org/) and autotools to be
-installed locally:
+Building requires the [Emscripten](https://emscripten.org/) sdk, autoconf,
+automake, and libtool.
 
-To setup for Mac:
+---
+
+The easiest way to build is to use the bundled Docker builder image based on the
+official [Emscripten](https://hub.docker.com/r/emscripten/emsdk) image. Simply
+run:
+
+```bash
+make docker-builder-run test
+```
+
+---
+
+If you would like to build natively on your Mac, and have
+[Homebrew](https://brew.sh/) installed, install these additional packages:
 
 ```bash
 brew install autoconf automake coreutils emscripten libtool
@@ -46,12 +59,3 @@ make
 ```
 
 Will build and test the module.
-
----
-
-If you want to use a Docker version of
-[Emscripten](https://hub.docker.com/r/emscripten/emsdk), run:
-
-```bash
-make docker-builder-run test
-```

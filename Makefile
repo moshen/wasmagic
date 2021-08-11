@@ -63,7 +63,11 @@ docker-builder-build:
 	docker build -f Dockerfile.Builder -t wasmagic-builder .
 
 docker-builder-run: docker-builder-build
-	docker run -ti -v "${PWD}:/app" wasmagic-builder /bin/bash -c "cd /app && make dist/wasmagic.js"
+	docker run -ti \
+		-v "${PWD}:/app" \
+		--user "$$UID:$$GID" \
+		wasmagic-builder \
+		/bin/bash -c "cd /app && make dist/wasmagic.js"
 
 fmt:
 	npm run fmt

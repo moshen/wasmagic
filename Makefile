@@ -4,7 +4,7 @@ SHELL := bash
 test: dist/index.js
 	npm run test
 
-package: dist/*.js dist/libmagic.LICENSE
+package: dist/index.js dist/libmagic.LICENSE
 
 dist/index.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
 	npx ttsc -d

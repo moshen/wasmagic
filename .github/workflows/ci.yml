@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build and Test
-        run: make test
+        run: make test package
   publish:
     name: Publish
     environment: Publish

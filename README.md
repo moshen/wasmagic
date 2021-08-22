@@ -16,12 +16,12 @@ npm install wasmagic
 const { WASMagic } = require("wasmagic");
 
 async function main() {
-    const magic = await WASMagic.create();
-    const pngFile = Buffer.from('89504E470D0A1A0A0000000D49484452', 'hex');
-    console.log(magic.getMime(pngFile));
+  const magic = await WASMagic.create();
+  const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
+  console.log(magic.getMime(pngFile));
 }
 
-main().catch(err => console.error(err));
+main().catch((err) => console.error(err));
 // outputs: image/png
 ```
 
@@ -36,15 +36,15 @@ of the file you want to detect, or slice the head off of a file buffer:
 
 ```javascript
 const { WASMagic } = require("wasmagic");
-const fs = require('fs');
+const fs = require("fs");
 
 async function main() {
-    const magic = await WASMagic.create();
-    const largeFile = fs.readFileSync('largeFile.mp4');
-    console.log(magic.getMime(largeFile.slice(0, 1024)));
+  const magic = await WASMagic.create();
+  const largeFile = fs.readFileSync("largeFile.mp4");
+  console.log(magic.getMime(largeFile.slice(0, 1024)));
 }
 
-main().catch(err => console.error(err));
+main().catch((err) => console.error(err));
 // outputs: video/mp4
 ```
 
@@ -59,8 +59,8 @@ to detect, be sure to test example files.
 
 ### Detected filetypes
 
-WASMagic detects any file type detected by
-[libmagic](https://github.com/file/file/tree/master/magic/Magdir), which is over
+WASMagic detects any file type [detected by
+libmagic](https://github.com/file/file/tree/master/magic/Magdir), which is over
 1500 mime types. For comparison; the
 [file-type](https://www.npmjs.com/package/file-type) library supports 138 types.
 

@@ -14,12 +14,14 @@ jobs:
           path: dist
           key: cache-build-artifacts-${{ github.sha }}
 
-      - uses: mymindstorm/setup-emsdk@v9
+      - uses: mymindstorm/setup-emsdk@v10
+        with:
+          version: 2.0.27
 
       - name: Setup build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends autoconf automake libtool
+          sudo apt-get install -y --no-install-recommends autoconf automake libtool xxd
 
       - name: Setup Node
         uses: actions/setup-node@v2

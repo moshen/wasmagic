@@ -9,12 +9,12 @@ package: dist/index.js dist/libmagic.LICENSE
 dist/index.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
 	npx ttsc -d
 
-dist/wasmagic.js: src/wasmagic.c dist/magic.mgc dist/libmagic.so
+dist/wasmagic.js: src/wasmagic.c dist/magicfile.h dist/libmagic.so
 	emcc -s MODULARIZE -s WASM=1 \
-	-s EXPORTED_RUNTIME_METHODS='["cwrap", "FS"]' \
+	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
 	-s EXPORTED_FUNCTIONS='["_wasmagic_get_mime", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
-	-I./vendor/file/src -L./dist \
+	-I./vendor/file/src -I./dist -L./dist \
 	-lmagic \
 	-o dist/wasmagic.js \
 	src/wasmagic.c
@@ -33,6 +33,9 @@ dist/magic.mgc: vendor/file/COPYING
 	&& ./configure --disable-silent-rules \
 	&& make \
 	&& cp magic/magic.mgc ../../dist/
+
+dist/magicfile.h: dist/magic.mgc
+	xxd -i dist/magic.mgc dist/magicfile.h
 
 dist/libmagic.so: vendor/file/COPYING
 	make clean-vendor-file \

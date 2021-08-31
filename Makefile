@@ -12,7 +12,7 @@ dist/index.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
 dist/wasmagic.js: src/wasmagic.c dist/magicfile.h dist/libmagic.so
 	emcc -s MODULARIZE -s WASM=1 \
 	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
-	-s EXPORTED_FUNCTIONS='["_wasmagic_get_mime", "_free"]' \
+	-s EXPORTED_FUNCTIONS='["_wasmagic_load", "_wasmagic_get_mime", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-I./vendor/file/src -I./dist -L./dist \
 	-lmagic \

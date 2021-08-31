@@ -11,6 +11,7 @@ export class WASMagic {
 
   private constructor(Module: WasMagicModule) {
     this.Module = Module;
+    Module.cwrap("wasmagic_load", null, [])();
     this.getMimeFromWasm = Module.cwrap("wasmagic_get_mime", "string", [
       "number",
       "number",

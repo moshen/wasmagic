@@ -16,6 +16,5 @@ void wasmagic_load()
 
 const char* wasmagic_get_mime(const void *buf, size_t nb)
 {
-  wasmagic_load();
   return magic_buffer(ms, buf, nb);
 }

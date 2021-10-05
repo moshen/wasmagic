@@ -16,7 +16,7 @@ jobs:
 
       - uses: mymindstorm/setup-emsdk@v10
         with:
-          version: 2.0.29
+          version: 2.0.31
 
       - name: Setup build tools
         run: |

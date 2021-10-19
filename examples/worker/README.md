@@ -13,7 +13,7 @@ thread or you want to take advantage of multiple CPU cores, and aren't using
 
 ## Running
 
-Running this example requires [building the parent project](../../#development)
+Running this example requires [building the parent project](../../README.md#development).
 
 Install dependencies in this folder:
 

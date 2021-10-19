@@ -25,6 +25,10 @@ main().catch((err) => console.error(err));
 // outputs: image/png
 ```
 
+### Examples
+
+- [Async / Worker threads](examples/worker/)
+
 ### Performance considerations
 
 WASMagic will copy the entire provided buffer into the wasm heap for processing.

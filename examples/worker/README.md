@@ -17,12 +17,12 @@ Running this example requires [building the parent project](../../#development)
 
 Install dependencies in this folder:
 
-```shell
+```bash
 npm install
 ```
 
 Run:
 
-```shell
+```bash
 node index.js
 ```

@@ -74,3 +74,15 @@ docker-builder-run: docker-builder-build
 
 fmt:
 	npm run fmt
+
+update-dependencies:
+	jq -r '.devDependencies | keys | .[]' < package.json \
+	| xargs -n1 npm info --json \
+	| jq -r '"\(.name)@\(.["dist-tags"].latest)"' \
+	| xargs npm install --save-dev
+
+	cd examples/worker \
+	&& jq -r '.devDependencies | keys | .[]' < package.json \
+	| xargs -n1 npm info --json \
+	| jq -r '"\(.name)@\(.["dist-tags"].latest)"' \
+	| xargs npm install --save-dev --no-package-lock

@@ -1,5 +1,4 @@
-const { promisify } = require("util");
-const readFile = promisify(require("fs").readFile);
+const fs = require("fs/promises");
 const assert = require("assert");
 const path = require("path");
 const os = require("os");
@@ -19,13 +18,16 @@ const wasmagicWorkerPool = new Piscina({
 async function main() {
   // Fill Buffers
   for (const testCase of testCases) {
-    const fileBuf = await readFile(path.join("..", "..", testCase[0]));
+    const file = await fs.open(path.join("..", "..", testCase[0]));
+    const stats = await file.stat();
     // Copying directly into a SharedArrayBuffer is faster than copying
     // the buffer to the worker.
     // If you're loading from a file, you could just pass the file path
     // instead of the Buffer, and load the file from the worker thread.
-    const sharedBuf = Buffer.from(new SharedArrayBuffer(fileBuf.length));
-    sharedBuf.set(fileBuf);
+    const sharedBuf = Buffer.from(new SharedArrayBuffer(stats.size));
+    const { bytesRead } = await file.read({ buffer: sharedBuf });
+    await file.close();
+    assert.equal(stats.size, bytesRead);
     testCase.push(sharedBuf);
   }
 
@@ -41,4 +43,7 @@ async function main() {
   }
 }
 
-main().catch((err) => console.error(err));
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

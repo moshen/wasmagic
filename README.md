@@ -72,12 +72,17 @@ of the file you want to detect, or slice the head off of a file buffer:
 
 ```javascript
 const { WASMagic } = require("wasmagic");
-const fs = require("fs");
+const fs = require("fs/promises");
 
 async function main() {
   const magic = await WASMagic.create();
-  const largeFile = fs.readFileSync("largeFile.mp4");
-  console.log(magic.getMime(largeFile.slice(0, 1024)));
+  const file = await fs.open("largeFile.mp4");
+  // Only read the first 1024 bytes of our large file
+  const { bytesRead, buffer } = await fs.read({ buffer: Buffer.alloc(1024) });
+  // We're assuming that largeFile.mp4 is >= 1024 bytes in size and our buffer
+  // will only have the first 1024 bytes of largeFile.mp4 in it
+  console.log(magic.getMime(buffer));
+  await file.close();
 }
 
 main().catch((err) => console.error(err));

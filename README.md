@@ -31,6 +31,38 @@ main().catch((err) => console.error(err));
 
 ### Performance considerations
 
+#### WASMagic instantiation
+
+You should instantiate as few copies of `WASMagic` as you can get away with for
+your usecase. Each instantiation loads the magic database, which is around 8MB.
+One instance per process / worker thread should be enough as the main api
+(`WASMagic.getMime`) is synchronous.
+
+If you want to offload processing to another thread, take a look at the [Async /
+Worker threads](examples/worker/) example.
+
+If you aren't passing your instantiated dependencies down in your application,
+and are trying to use this as a global, try something like the following:
+
+```javascript
+const { WASMagic } = require("wasmagic");
+let magicGlobal = null;
+const magicPromise = WASMagic.create().then((instance) => {
+  magicGlobal = instance;
+});
+
+async function main() {
+  const magic = magicGlobal || (await magicPromise);
+  const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
+  console.log(magic.getMime(pngFile));
+}
+
+main().catch((err) => console.error(err));
+// outputs: image/png
+```
+
+#### Large files
+
 WASMagic will copy the entire provided buffer into the wasm heap for processing.
 This can cause significant performance penalties if the files being processed
 are exceptionally large (ex. video files, image files).

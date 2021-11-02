@@ -49,6 +49,7 @@ const { WASMagic } = require("wasmagic");
 let magicGlobal = null;
 const magicPromise = WASMagic.create().then((instance) => {
   magicGlobal = instance;
+  return magicGlobal;
 });
 
 async function main() {
@@ -78,7 +79,7 @@ async function main() {
   const magic = await WASMagic.create();
   const file = await fs.open("largeFile.mp4");
   // Only read the first 1024 bytes of our large file
-  const { bytesRead, buffer } = await fs.read({ buffer: Buffer.alloc(1024) });
+  const { bytesRead, buffer } = await file.read({ buffer: Buffer.alloc(1024) });
   // We're assuming that largeFile.mp4 is >= 1024 bytes in size and our buffer
   // will only have the first 1024 bytes of largeFile.mp4 in it
   console.log(magic.getMime(buffer));

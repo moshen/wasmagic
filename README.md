@@ -28,6 +28,7 @@ main().catch((err) => console.error(err));
 ### Examples
 
 - [Async / Worker threads](examples/worker/)
+- [Stream mime type detection](examples/stream-detection/)
 
 ### Performance considerations
 
@@ -89,6 +90,11 @@ async function main() {
 main().catch((err) => console.error(err));
 // outputs: video/mp4
 ```
+
+Alternatively, if you are streaming a large file, look at the [stream mime type
+detection example](examples/stream-detection/). When you're dealing with
+streams you can attempt detection of the mime type when the first chunks are
+loaded.
 
 However, this strategy falls apart depending on the type of file that you are
 trying to detect and the accuracy you are looking for. For example; pre 2007

@@ -1,4 +1,4 @@
-.PHONY = test package clean clean-dist clean-vendor-file clean-submodules docker-builder-build docker-builder-run fmt
+.PHONY = test package clean clean-dist clean-vendor-file clean-submodules docker-builder-build docker-builder-run fmt update-dependencies
 SHELL := bash
 
 test: dist/index.js
@@ -76,13 +76,16 @@ fmt:
 	npm run fmt
 
 update-dependencies:
-	jq -r '.devDependencies | keys | .[]' < package.json \
-	| xargs -n1 npm info --json \
-	| jq -r '"\(.name)@\(.["dist-tags"].latest)"' \
-	| xargs npm install --save-dev
-
-	cd examples/worker \
-	&& jq -r '.devDependencies | keys | .[]' < package.json \
-	| xargs -n1 npm info --json \
-	| jq -r '"\(.name)@\(.["dist-tags"].latest)"' \
-	| xargs npm install --save-dev --no-package-lock
+	directories=("." "examples/worker" "examples/streaming-detection"); \
+	packageLockFlag=""; \
+	for i in $${!directories[@]}; do \
+		if [[ $$i -gt 0 ]]; then \
+			packageLockFlag="--no-package-lock"; \
+		fi; \
+		pushd "$${directories[$$i]}"; \
+		jq -r '.devDependencies | keys | .[]' < package.json \
+		| xargs -n1 npm info --json \
+		| jq -r '"\(.name)@\(.["dist-tags"].latest)"' \
+		| xargs npm install --save-dev "$$packageLockFlag"; \
+		popd; \
+	done

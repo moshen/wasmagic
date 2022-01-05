@@ -79,7 +79,7 @@ fmt:
 	npm run fmt
 
 update-dependencies:
-	directories=("." "examples/worker" "examples/streaming-detection"); \
+	directories=("." "examples/worker" "examples/stream-detection"); \
 	packageLockFlag=""; \
 	for i in $${!directories[@]}; do \
 		if [[ $$i -gt 0 ]]; then \

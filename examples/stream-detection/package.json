@@ -8,6 +8,6 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "axios": "^0.24.0",
-    "express": "^4.17.1"
+    "express": "^4.17.2"
   }
 }

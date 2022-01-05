@@ -6,18 +6,21 @@ test: dist/index.js
 
 package: dist/index.js dist/libmagic.LICENSE
 
-dist/index.js: src/*.ts src/test/integration/*.ts dist/wasmagic.js
-	npx ttsc -d
+dist/index.js: src/*.ts src/test/integration/*.ts dist/libmagic-wrapper.js
+	npx tsc -d
 
-dist/wasmagic.js: src/wasmagic.c dist/magicfile.h dist/libmagic.so
+dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magicfile.h dist/libmagic.so dist/libmagic-wrapper.d.ts
 	emcc -s MODULARIZE -s WASM=1 \
 	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
-	-s EXPORTED_FUNCTIONS='["_wasmagic_load", "_wasmagic_get_mime", "_free"]' \
+	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_get_mime", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-I./vendor/file/src -I./dist -L./dist \
 	-lmagic \
-	-o dist/wasmagic.js \
-	src/wasmagic.c
+	-o dist/libmagic-wrapper.js \
+	src/libmagic-wrapper.c
+
+dist/libmagic-wrapper.d.ts: types/libmagic-wrapper.d.ts
+	cp types/libmagic-wrapper.d.ts dist/libmagic-wrapper.d.ts
 
 dist/libmagic.LICENSE: vendor/file/COPYING
 	cp vendor/file/COPYING dist/libmagic.LICENSE
@@ -70,7 +73,7 @@ docker-builder-run: docker-builder-build
 		-v "${PWD}:/app" \
 		--user "$$UID:$$GID" \
 		wasmagic-builder \
-		/bin/bash -c "cd /app && make dist/wasmagic.js"
+		/bin/bash -c "cd /app && make dist/libmagic-wrapper.js"
 
 fmt:
 	npm run fmt

@@ -1,18 +1,20 @@
-import wasmagicFactory from "wasmagic"; // ./dist/wasmagic.js
+import libmagicFactory from "../dist/libmagic-wrapper";
+
+declare function wrappedGetMime(bufPointer: number, bufLength: number): string;
 
 export class WASMagic {
   static async create(): Promise<WASMagic> {
-    const Module = await wasmagicFactory();
+    const Module = await libmagicFactory();
     return new WASMagic(Module);
   }
 
-  private Module: WasMagicModule;
+  private Module: LibmagicModule;
   private getMimeFromWasm: typeof wrappedGetMime;
 
-  private constructor(Module: WasMagicModule) {
+  private constructor(Module: LibmagicModule) {
     this.Module = Module;
-    Module.cwrap("wasmagic_load", null, [])();
-    this.getMimeFromWasm = Module.cwrap("wasmagic_get_mime", "string", [
+    Module.cwrap("magic_wrapper_load", null, [])();
+    this.getMimeFromWasm = Module.cwrap("magic_wrapper_get_mime", "string", [
       "number",
       "number",
     ]) as typeof wrappedGetMime;

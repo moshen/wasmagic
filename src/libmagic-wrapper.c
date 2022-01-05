@@ -6,7 +6,7 @@ struct magic_set *ms = NULL;
 void *magic_buffers = &dist_magic_mgc;
 size_t *magic_buffers_sizes = (size_t*)&dist_magic_mgc_len;
 
-void wasmagic_load()
+void magic_wrapper_load()
 {
   if (ms == NULL) {
     ms = magic_open(0 | MAGIC_MIME_TYPE);
@@ -14,7 +14,7 @@ void wasmagic_load()
   }
 }
 
-const char* wasmagic_get_mime(const void *buf, size_t nb)
+const char* magic_wrapper_get_mime(const void *buf, size_t nb)
 {
   return magic_buffer(ms, buf, nb);
 }

@@ -1,16 +1,23 @@
 # WASMagic
 
+[![NPM](https://img.shields.io/npm/v/wasmagic)](https://www.npmjs.com/package/wasmagic)
+[![Build status](https://img.shields.io/github/workflow/status/moshen/wasmagic/CI/master)](https://github.com/moshen/wasmagic/actions/workflows/ci.yml)
+
 ## About
 
-A WebAssembly compiled version of [libmagic](https://www.darwinsys.com/file/)
-with a simple API for Node. WASMagic provides accurate filetype detection with
-zero prod dependencies.
+A [WebAssembly](https://webassembly.org/) compiled version of
+[libmagic](https://www.darwinsys.com/file/) with a simple API for Node. WASMagic
+provides accurate filetype detection with zero prod dependencies.
 
 ## Usage
+
+[Install `wasmagic` from npm](https://www.npmjs.com/package/wasmagic):
 
 ```bash
 npm install wasmagic
 ```
+
+Detect the mime of something:
 
 ```javascript
 const { WASMagic } = require("wasmagic");
@@ -127,7 +134,7 @@ npm ci
 ---
 
 Building requires the [Emscripten](https://emscripten.org/) sdk, autoconf,
-automake, and libtool.
+automake, libtool, and xxd.
 
 ---
 
@@ -155,3 +162,35 @@ make
 ```
 
 Will build and test the module.
+
+## Why WASMagic?
+
+Like many open source projects, WASMagic was created to solve my problems:
+
+- I need to detect a diverse set of file types
+  - Recent versions of libmagic work for all the file types I need
+- I need to detect the mime type of a `Buffer` in Node
+  - Incurring the performance penalty of disk I/O to detect a file I already had
+    in memory was unacceptable
+
+### Why existing libraries didn't meet these needs
+
+- Non libmagic based libraries do not properly detect the filetypes I need. This
+  includes the popular [file-type](https://www.npmjs.com/package/file-type)
+  library.
+- All libmagic Node libraries [I found](https://www.npmjs.com/search?q=libmagic)
+  are using a _very_ old or broken version of libmagic. At time of writing, these
+  were the libraries available:
+  - [libmagic](https://www.npmjs.com/package/libmagic), 4 years old
+  - [mmmagic](https://www.npmjs.com/package/mmmagic), 3 years old
+  - [mime-magic](https://www.npmjs.com/package/mime-magic), 9 years old
+  - [@npcz/magic](https://www.npmjs.com/package/@npcz/magic), 6 months old, but
+    uses a broken version of libmagic. Misidentifies `.mp3` files
+- In the case of [@npcz/magic](https://www.npmjs.com/package/@npcz/magic), it's
+  API required reading the mime of a file on disk
+
+### Why WASM instead of using `libmagic` natively?
+
+When benchmarking against native modules like `mmmagic` I found my WASM based
+proof of concept to be faster. It also seems prudent to run libmagic within the
+WASM sandbox, as it bypasses security concerns about libmagic itself.

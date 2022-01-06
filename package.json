@@ -15,7 +15,6 @@
   "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "scripts": {
-    "fmt": "prettier --ignore-path .gitignore -w {src,examples}/**/*.{js,ts,md} .github/**/*.yml *.js{,on} *.md",
     "test": "jest"
   },
   "author": "Colin Kennedy <moshen.colin@gmail.com>",

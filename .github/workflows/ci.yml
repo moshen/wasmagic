@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build and Test
-        run: make test package
+        run: make fmt-check test package
   publish:
     name: Publish
     environment: Publish

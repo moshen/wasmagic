@@ -1,12 +1,15 @@
 .PHONY = test package clean clean-dist clean-vendor-file clean-submodules docker-builder-build docker-builder-run fmt update-dependencies
 SHELL := bash
 
+ts_files := $(wildcard src/*.ts src/test/integration/*.ts types/*.ts)
+fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/workflows/*.yml *.js{,on} *.md)
+
 test: dist/index.js
 	npm run test
 
 package: dist/index.js dist/libmagic.LICENSE
 
-dist/index.js: src/*.ts src/test/integration/*.ts dist/libmagic-wrapper.js
+dist/index.js: $(ts_files) dist/libmagic-wrapper.js
 	npx tsc -d
 
 dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magicfile.h dist/libmagic.so dist/libmagic-wrapper.d.ts
@@ -75,8 +78,11 @@ docker-builder-run: docker-builder-build
 		wasmagic-builder \
 		/bin/bash -c "cd /app && make dist/libmagic-wrapper.js"
 
-fmt:
-	npm run fmt
+fmt: $(ts_files) $(fmt_files)
+	npx --no-install prettier --ignore-path .gitignore -w $(ts_files) $(fmt_files)
+
+fmt-check: $(ts_files) $(fmt_files)
+	npx --no-install prettier --ignore-path .gitignore -c $(ts_files) $(fmt_files)
 
 update-dependencies:
 	directories=("." "examples/worker" "examples/stream-detection"); \

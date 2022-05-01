@@ -15,7 +15,7 @@ dist/index.js: $(ts_files) dist/libmagic-wrapper.js
 dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magicfile.h dist/libmagic.so dist/libmagic-wrapper.d.ts
 	emcc -s MODULARIZE -s WASM=1 \
 	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
-	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_get_mime", "_free"]' \
+	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_get_mime", "_malloc", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-I./vendor/file/src -I./dist -L./dist \
 	-lmagic \

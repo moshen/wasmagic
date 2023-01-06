@@ -1,7 +1,7 @@
 # WASMagic
 
 [![NPM](https://img.shields.io/npm/v/wasmagic)](https://www.npmjs.com/package/wasmagic)
-[![Build status](https://img.shields.io/github/workflow/status/moshen/wasmagic/CI/master)](https://github.com/moshen/wasmagic/actions/workflows/ci.yml)
+[![Build status](https://img.shields.io/github/actions/workflow/status/moshen/wasmagic/ci.yml?branch=master)](https://github.com/moshen/wasmagic/actions/workflows/ci.yml)
 
 ## About
 

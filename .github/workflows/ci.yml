@@ -8,6 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set variables
+        run: |
+          NODE_VERSION="$(< .nvmrc)"
+          echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
+          EMSDK_VERSION="$(awk 'NR==1{ match($0, /emsdk:([0-9.]*)$/, a);  print a[1]; }' Dockerfile.Builder)"
+          echo "EMSDK_VERSION=$EMSDK_VERSION" >> $GITHUB_ENV
+
       - name: Cache build artifacts
         uses: actions/cache@v2
         with:
@@ -16,7 +23,7 @@ jobs:
 
       - uses: mymindstorm/setup-emsdk@v10
         with:
-          version: 3.1.29
+          version: ${{ env.EMSDK_VERSION }}
 
       - name: Setup build tools
         run: |
@@ -26,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm ci

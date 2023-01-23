@@ -4,6 +4,8 @@ SHELL := bash
 ts_files := $(wildcard src/*.ts src/test/integration/*.ts types/*.ts)
 fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/workflows/*.yml *.js{,on} *.md)
 
+export EMCC_CFLAGS = -msimd128 -O2
+
 test: dist/index.js
 	npm run test
 

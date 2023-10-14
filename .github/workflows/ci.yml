@@ -56,7 +56,7 @@ jobs:
           key: cache-build-artifacts-${{ github.sha }}
 
       - name: Publish
-        uses: moshen/merge-release@master
+        uses: moshen/merge-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

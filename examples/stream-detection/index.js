@@ -72,7 +72,7 @@ async function init() {
             `We don't want a ${detectedMime}. Hanging up.
 Bytes Processed: ${processedBytes}
 Duration: ${time}ms
-Bytes / Second: ${bytesSecond}`
+Bytes / Second: ${bytesSecond}`,
           );
           // Even though this is in the write method of our stream, it will
           // immediately end the processing of the incoming POST and throw a

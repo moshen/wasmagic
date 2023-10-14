@@ -1,11 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
-import { promisify } from "util";
-import { glob as globImport } from "glob";
+import { glob } from "glob";
 import { cases } from "./data";
 import { WASMagic } from "../../index";
-
-const glob = promisify(globImport);
 
 describe("WASMagic", () => {
   let fileExampleList: string[];

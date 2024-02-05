@@ -2,12 +2,12 @@ export const cases = [
   [
     "vendor/file-examples/2017/02/file-sample.doc",
     "application/msword",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 10:09:18 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 09:09:18 2017",
   ],
   [
     "vendor/file-examples/2017/02/file-sample_100kB.doc",
     "application/msword",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 10:09:18 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 09:09:18 2017",
   ],
   [
     "vendor/file-examples/2017/02/file-sample_100kB.docx",
@@ -17,7 +17,7 @@ export const cases = [
   [
     "vendor/file-examples/2017/02/file-sample_1MB.doc",
     "application/msword",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 10:09:18 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 09:09:18 2017",
   ],
   [
     "vendor/file-examples/2017/02/file-sample_1MB.docx",
@@ -27,7 +27,7 @@ export const cases = [
   [
     "vendor/file-examples/2017/02/file-sample_500kB.doc",
     "application/msword",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 10:09:18 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 09:09:18 2017",
   ],
   [
     "vendor/file-examples/2017/02/file-sample_500kB.docx",
@@ -72,27 +72,27 @@ export const cases = [
   [
     "vendor/file-examples/2017/02/file_example_XLS_10.xls",
     "application/vnd.ms-excel",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 4, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 10:50:33 2017, Last Saved Time/Date: Fri Aug  4 10:27:53 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 4, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 09:50:33 2017, Last Saved Time/Date: Fri Aug  4 09:27:53 2017",
   ],
   [
     "vendor/file-examples/2017/02/file_example_XLS_100.xls",
     "application/vnd.ms-excel",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 4, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 10:50:33 2017, Last Saved Time/Date: Fri Aug  4 10:31:23 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 4, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 09:50:33 2017, Last Saved Time/Date: Fri Aug  4 09:31:23 2017",
   ],
   [
     "vendor/file-examples/2017/02/file_example_XLS_1000.xls",
     "application/vnd.ms-excel",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 10:50:33 2017, Last Saved Time/Date: Fri Aug  4 10:30:56 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 09:50:33 2017, Last Saved Time/Date: Fri Aug  4 09:30:56 2017",
   ],
   [
     "vendor/file-examples/2017/02/file_example_XLS_50.xls",
     "application/vnd.ms-excel",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 10:50:33 2017, Last Saved Time/Date: Fri Aug  4 10:26:19 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 09:50:33 2017, Last Saved Time/Date: Fri Aug  4 09:26:19 2017",
   ],
   [
     "vendor/file-examples/2017/02/file_example_XLS_5000.xls",
     "application/vnd.ms-excel",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 10:50:33 2017, Last Saved Time/Date: Fri Aug  4 10:34:04 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 3, Total Editing Time: 23:28:27, Create Time/Date: Thu Aug  3 09:50:33 2017, Last Saved Time/Date: Fri Aug  4 09:34:04 2017",
   ],
   [
     "vendor/file-examples/2017/02/file_example_XML_24kb.xml",
@@ -147,17 +147,17 @@ export const cases = [
   [
     "vendor/file-examples/2017/08/file_example_PPT_1MB.ppt",
     "application/vnd.ms-powerpoint",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 20:58:16 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 19:58:16 2017",
   ],
   [
     "vendor/file-examples/2017/08/file_example_PPT_250kB.ppt",
     "application/vnd.ms-powerpoint",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 20:58:16 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 19:58:16 2017",
   ],
   [
     "vendor/file-examples/2017/08/file_example_PPT_500kB.ppt",
     "application/vnd.ms-powerpoint",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 20:58:16 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Thu Aug 10 19:58:16 2017",
   ],
   [
     "vendor/file-examples/2017/10/410.svg",
@@ -382,7 +382,7 @@ export const cases = [
   [
     "vendor/file-examples/2017/file-sample.doc",
     "application/msword",
-    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 10:09:18 2017",
+    "Composite Document File V2 Document, Little Endian, Os: Windows, Version 1.0, Code page: -535, Revision Number: 0, Create Time/Date: Wed Aug  2 09:09:18 2017",
   ],
   [
     "vendor/file-examples/2018/04/file_example_AVI_1280_1_5MG.avi",

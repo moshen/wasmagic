@@ -7,7 +7,7 @@ fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/w
 export EMCC_CFLAGS = -msimd128 -O2
 
 test: dist/index.js
-	npm run test
+	TZ='UTC' npm run test
 
 package: dist/index.js dist/libmagic.LICENSE
 

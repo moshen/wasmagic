@@ -2,23 +2,30 @@
 SHELL := bash
 
 ts_files := $(wildcard src/*.ts src/test/integration/*.ts types/*.ts)
-fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/workflows/*.yml *.js{,on} *.md)
+fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/workflows/*.yml *.js{,on} *.md src/*.js)
+num_processors := $(shell nproc || printf "1")
 
 export EMCC_CFLAGS = -msimd128 -O2
 
-test: dist/index.js
+test: dist/index.js dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/integration/jpeg_magic
 	npm run test
+
+dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/integration/jpeg_magic &:
+	mkdir -p dist/test/integration \
+	&& cp src/test/integration/*_magic dist/test/integration/
 
 package: dist/index.js dist/libmagic.LICENSE
 
 dist/index.js: $(ts_files) dist/libmagic-wrapper.js
 	npx tsc -d
 
-dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magicfile.h dist/libmagic.so dist/libmagic-wrapper.d.ts
+dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magic.mgc dist/libmagic.so dist/libmagic-wrapper.d.ts
 	emcc -s MODULARIZE -s WASM=1 \
-	-s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
+	-s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "FS"]' \
 	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_get_mime", "_malloc", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
+	--pre-js ./src/pre.js \
+	--embed-file ./dist/magic.mgc@/magic/magic.mgc \
 	-I./vendor/file/src -I./dist -L./dist \
 	-lmagic \
 	-o dist/libmagic-wrapper.js \
@@ -39,11 +46,8 @@ dist/magic.mgc: vendor/file/COPYING
 	&& cd vendor/file \
 	&& autoreconf -f -i \
 	&& ./configure --disable-silent-rules \
-	&& make \
+	&& make -j${num_processors} \
 	&& cp magic/magic.mgc ../../dist/
-
-dist/magicfile.h: dist/magic.mgc
-	xxd -i dist/magic.mgc dist/magicfile.h
 
 dist/libmagic.so: vendor/file/COPYING
 	make clean-vendor-file \
@@ -51,7 +55,7 @@ dist/libmagic.so: vendor/file/COPYING
 	&& autoreconf -f -i \
 	&& emconfigure ./configure --disable-silent-rules \
 	&& cd src/ \
-	&& emmake make \
+	&& emmake make -j${num_processors} \
 	&& { { [[ -e .libs/libmagic.dylib ]] \
 		&& mv .libs/libmagic.dylib .libs/libmagic.so; } || true; } \
 	&& mv "$$(realpath .libs/libmagic.so)" ../../../dist/libmagic.so

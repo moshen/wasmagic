@@ -5,5 +5,4 @@ RUN apt-get update \
   autoconf \
   automake \
   libtool \
-  xxd \
   && rm -rf /var/lib/apt/lists/*

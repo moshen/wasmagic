@@ -32,6 +32,97 @@ main().catch((err) => console.error(err));
 // outputs: image/png
 ```
 
+### Options
+
+The `WASMagic.create()` method takes an optional options object with the type
+`WASMagicOptions`. These options can be used to customize file type detection by
+either augmenting the default magic file or replacing it completely.
+
+For examples on using these options, [please look at the
+tests](src/test/integration/index.ts).
+
+#### `WASMagicOptions`
+
+```typescript
+type WASMagicOptions = {
+  loadDefaultMagicfile?: boolean;
+  magicFiles?: Uint8Array[];
+  stdio?: (stdioName: "stdout" | "stderr", text: string) => void;
+};
+```
+
+Default options:
+
+```typescript
+{
+  loadDefaultMagicfile: true,
+  magicFiles: [],
+  stdio: (_stdioName: "stdout" | "stderr", _text: string) => {},
+}
+```
+
+##### `loadDefaultMagicfile`
+
+`loadDefaultMagicFile` is a `boolean` dictates whether or not to load the
+bundled magic file. The bundled magic file is the default `magic.mgc` file
+generated in the `libmagic` build.
+
+**Default**: `true`
+
+##### `magicFiles`
+
+`magicFiles` is an `Array` of `Uint8Array`s representing magic definition files.
+This option can be used to tell `libmagic` to use custom file type detection.
+
+[See the test `foobarfiletype` magic file definition as an example custom file
+type magic definition](src/test/integration/foobar_magic).
+
+As these are passed as `Uint8Array`s, custom definitions can be loaded from
+a file, or embedded directly in your code. For example:
+
+```javascript
+const { WASMagic } = require("wasmagic");
+
+const foobarMagic = Buffer.from(
+  `
+0  string  FOOBARFILETYPE  Made up filetype
+!:mime foobarfiletype
+`,
+);
+
+async function main() {
+  const magic = await WASMagic.create({
+    magicFiles: [foobarMagic],
+  });
+
+  console.log(
+    magic.getMime(
+      Buffer.from(
+        `FOOBARFILETYPE
+
+Some made up stuff
+`,
+      ),
+    ),
+  );
+}
+
+main().catch((err) => console.error(err));
+// outputs: foobarfiletype
+```
+
+**Default**: `[]`
+
+##### `stdio`
+
+`stdio` is a `function` defined to override stdout / stderr output from
+`libmagic`. This option might not be particularly useful for normal usage, but
+very useful for getting warnings about custom magic files and debugging the
+development of this module.
+
+**Default**: `(_stdioName: "stdout" | "stderr", _text: string) => {}` (No
+output)
+
 ### Examples
 
 - [Async / Worker threads](examples/worker/)
@@ -42,12 +133,13 @@ main().catch((err) => console.error(err));
 #### WASMagic instantiation
 
 You should instantiate as few copies of `WASMagic` as you can get away with for
-your usecase. Each instantiation loads the magic database, which is around 8MB.
+your use case. Each instantiation loads the magic database, which is around 8MB.
 One instance per process / worker thread should be enough as the main api
 (`WASMagic.getMime`) is synchronous.
 
-If you want to offload processing to another thread, take a look at the [Async /
-Worker threads](examples/worker/) example.
+If you want to offload processing to another thread (and in production workloads
+you probably should be), take a look at the [Async / Worker
+threads](examples/worker/) example.
 
 If you aren't passing your instantiated dependencies down in your application,
 and are trying to use this as a global, try something like the following:
@@ -114,9 +206,9 @@ to detect, be sure to test example files.
 
 ### Detected filetypes
 
-WASMagic detects any file type [detected by
-libmagic](https://github.com/file/file/tree/master/magic/Magdir), which is over
-1500 mime types. For comparison; the
+WASMagic includes the default magic file which enables detection any file type
+[detected by libmagic](https://github.com/file/file/tree/master/magic/Magdir),
+which is over 1500 mime types. For comparison; the
 [file-type](https://www.npmjs.com/package/file-type) library supports 138 types.
 
 Specifically, WASMagic will accurately detect all types of Microsoft Office
@@ -134,7 +226,7 @@ npm ci
 ---
 
 Building requires the [Emscripten](https://emscripten.org/) sdk, autoconf,
-automake, libtool, and xxd.
+automake, and libtool.
 
 ---
 
@@ -143,7 +235,7 @@ official [Emscripten](https://hub.docker.com/r/emscripten/emsdk) image. Simply
 run:
 
 ```bash
-make docker-builder-run test
+make clean docker-builder-run test
 ```
 
 ---

@@ -28,7 +28,7 @@ jobs:
       - name: Setup build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends autoconf automake libtool xxd
+          sudo apt-get install -y --no-install-recommends autoconf automake libtool
 
       - name: Setup Node
         uses: actions/setup-node@v2

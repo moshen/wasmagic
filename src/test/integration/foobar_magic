@@ -1,0 +1,4 @@
+# Made up filetype for testing
+
+0  string  FOOBARFILETYPE  Made up filetype
+!:mime foobarfiletype

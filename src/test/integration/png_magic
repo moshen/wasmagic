@@ -1,0 +1,7 @@
+# Copied from vendor/file/magic/Magdir/images
+# Refer to vendor/file/COPYING for License information
+
+# Standard PNG image.
+0	string		\x89PNG\x0d\x0a\x1a\x0a\x00\x00\x00\x0DIHDR	PNG image data
+!:mime	image/png
+!:ext   png

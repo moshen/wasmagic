@@ -1,0 +1,6 @@
+# Copied from vendor/file/magic/Magdir/jpeg
+# Refer to vendor/file/COPYING for License information
+
+0	belong&0xffffff00	0xffd8ff00	JPEG image data
+!:mime	image/jpeg
+!:ext jpeg/jpg/jpe/jfif

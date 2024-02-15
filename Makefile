@@ -8,7 +8,7 @@ num_processors := $(shell nproc || printf "1")
 export EMCC_CFLAGS = -msimd128 -O2
 
 test: dist/index.js dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/integration/jpeg_magic
-	npm run test
+	TZ='UTC' npm run test
 
 dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/integration/jpeg_magic &:
 	mkdir -p dist/test/integration \

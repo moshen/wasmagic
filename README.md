@@ -17,19 +17,21 @@ provides accurate filetype detection with zero prod dependencies.
 npm install wasmagic
 ```
 
-Detect the mime of something:
+Detect the mime and encoding of something:
 
 ```javascript
-const { WASMagic } = require("wasmagic");
+const { WASMagic, WASMagicFlags } = require("wasmagic");
 
 async function main() {
-  const magic = await WASMagic.create();
+  const magic = await WASMagic.create({
+    flags: WASMagicFlags.MIME_TYPE | WASMagicFlags.MIME_ENCODING,
+  });
   const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
   console.log(magic.getMime(pngFile));
 }
 
 main().catch((err) => console.error(err));
-// outputs: image/png
+// outputs: image/png; charset=binary
 ```
 
 ### Options
@@ -45,6 +47,7 @@ tests](src/test/integration/index.ts).
 
 ```typescript
 type WASMagicOptions = {
+  flags?: WASMagicFlags;
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: (stdioName: "stdout" | "stderr", text: string) => void;
@@ -55,11 +58,21 @@ Default options:
 
 ```typescript
 {
+  flags: WASMagicFlags.MIME_TYPE,
   loadDefaultMagicfile: true,
   magicFiles: [],
   stdio: (_stdioName: "stdout" | "stderr", _text: string) => {},
 }
 ```
+
+##### `flags`
+
+`flags` control `libmagic` behavior. To use the flags, import the `enum` from
+the module, [per the example above](#usage).
+
+[Please refer to the code for the flag definitions](src/index.ts#L5)
+
+**Default**: `WASMagicFlags.MIME_TYPE`
 
 ##### `loadDefaultMagicfile`
 

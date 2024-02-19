@@ -1,6 +1,6 @@
 import libmagicFactory from "../dist/libmagic-wrapper";
 
-declare function wrappedGetMime(bufPointer: number, bufLength: number): string;
+declare function wrappedDetect(bufPointer: number, bufLength: number): string;
 
 export enum WASMagicFlags {
   /** No flags */
@@ -91,7 +91,7 @@ export class WASMagic {
   }
 
   private Module: LibmagicModule;
-  private getMimeFromWasm: typeof wrappedGetMime;
+  private detectFromWasm: typeof wrappedDetect;
 
   private constructor(Module: LibmagicModule, inputOptions: WASMagicOptions) {
     const options = Object.assign({}, defaultWASMagicOptions, inputOptions);
@@ -130,17 +130,24 @@ export class WASMagic {
     Module.FS.unlink("/magic/magic.mgc");
 
     this.Module = Module;
-    this.getMimeFromWasm = Module.cwrap("magic_wrapper_get_mime", "string", [
+    this.detectFromWasm = Module.cwrap("magic_wrapper_detect", "string", [
       "number",
       "number",
-    ]) as typeof wrappedGetMime;
+    ]) as typeof wrappedDetect;
   }
 
-  getMime(buf: Uint8Array): string {
+  detect(buf: Uint8Array): string {
     const ptr = this.Module._malloc(buf.length);
     this.Module.HEAPU8.set(buf, ptr);
-    const result = this.getMimeFromWasm(ptr, buf.length);
+    const result = this.detectFromWasm(ptr, buf.length);
     this.Module._free(ptr);
     return result;
+  }
+
+  /**
+   * @deprecated Use {@link WASMagic#detect} instead
+   */
+  getMime(buf: Uint8Array): string {
+    return this.detect(buf);
   }
 }

@@ -31,7 +31,7 @@ async function init() {
         // Once we receive over 1KB, we can try and get the mime type of the upload
         if (curSize >= 1024) {
           const recieved = Buffer.concat(bufs);
-          detectedMime = magic.getMime(recieved);
+          detectedMime = magic.detect(recieved);
           console.log("Got a:", detectedMime);
           isDetected = true;
           // Send everything we've received to the next stream in the pipe,

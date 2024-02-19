@@ -30,8 +30,8 @@ describe("WASMagic", () => {
       const out: string[][] = [];
       for (const file of fileExampleList) {
         const fileBuf = fs.readFileSync(file);
-        const mimeType = magic.getMime(fileBuf);
-        const textType = magicText.getMime(fileBuf);
+        const mimeType = magic.detect(fileBuf);
+        const textType = magicText.detect(fileBuf);
         out.push([
           path.relative(path.resolve(__dirname, "../../../"), file),
           mimeType,
@@ -45,8 +45,8 @@ describe("WASMagic", () => {
       "%s identified as %s",
       (file, expectedOutput, expectedText) => {
         const fileBuf = fs.readFileSync(file);
-        expect(magic.getMime(fileBuf)).toBe(expectedOutput);
-        expect(magicText.getMime(fileBuf)).toBe(expectedText);
+        expect(magic.detect(fileBuf)).toBe(expectedOutput);
+        expect(magicText.detect(fileBuf)).toBe(expectedText);
       },
     );
   });
@@ -63,7 +63,7 @@ describe("WASMagic", () => {
 
     test("FOOBAR file type identified as foobarfiletype", () => {
       expect(
-        magic.getMime(
+        magic.detect(
           Buffer.from(
             `FOOBARFILETYPE
 
@@ -78,7 +78,7 @@ Some made up stuff
     test.each(cases.filter((v) => pngOrJpeg.includes(v[1])))(
       "%s identified as %s",
       (file, expectedOutput) => {
-        expect(magic.getMime(fs.readFileSync(file))).toBe(expectedOutput);
+        expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
       },
     );
   });
@@ -100,7 +100,7 @@ Some made up stuff
     test.each(cases.filter((v) => pngOrJpeg.includes(v[1])))(
       "%s identified as %s",
       (file, expectedOutput) => {
-        expect(magic.getMime(fs.readFileSync(file))).toBe(expectedOutput);
+        expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
       },
     );
 
@@ -108,7 +108,7 @@ Some made up stuff
     test.each(cases.filter((v) => rtfOrHtml.includes(v[1])))(
       "%s identified as text/plain",
       (file) => {
-        expect(magic.getMime(fs.readFileSync(file))).toBe("text/plain");
+        expect(magic.detect(fs.readFileSync(file))).toBe("text/plain");
       },
     );
   });

@@ -19,7 +19,7 @@ const char* magic_wrapper_load(
   return "";
 }
 
-const char* magic_wrapper_get_mime(const void *buf, size_t nb)
+const char* magic_wrapper_detect(const void *buf, size_t nb)
 {
   return magic_buffer(ms, buf, nb);
 }

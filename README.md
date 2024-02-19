@@ -25,7 +25,7 @@ import { WASMagic } from "wasmagic";
 const magic = await WASMagic.create();
 
 const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
-console.log(magic.getMime(pngFile));
+console.log(magic.detect(pngFile));
 // outputs: image/png
 ```
 
@@ -37,7 +37,7 @@ const { WASMagic } = require("wasmagic");
 async function main() {
   const magic = await WASMagic.create();
   const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
-  console.log(magic.getMime(pngFile));
+  console.log(magic.detect(pngFile));
 }
 
 main().catch((err) => console.error(err));
@@ -88,7 +88,7 @@ const magic = await WASMagic.create({
 });
 
 const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
-console.log(magic.getMime(pngFile));
+console.log(magic.detect(pngFile));
 // outputs: image/png; charset=binary
 ```
 
@@ -130,7 +130,7 @@ const magic = await WASMagic.create({
 });
 
 console.log(
-  magic.getMime(
+  magic.detect(
     Buffer.from(
       `FOOBARFILETYPE
 
@@ -167,7 +167,7 @@ output)
 You should instantiate as few copies of `WASMagic` as you can get away with for
 your use case. Each instantiation loads the magic database, which is around 8MB.
 One instance per process / worker thread should be enough as the main api
-(`WASMagic.getMime`) is synchronous.
+(`WASMagic.detect`) is synchronous.
 
 If you want to offload processing to another thread (and in production workloads
 you probably should be), take a look at the [Async / Worker
@@ -190,7 +190,7 @@ const magicPromise = WASMagic.create().then((instance) => {
 async function main() {
   const magic = magicGlobal || (await magicPromise);
   const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
-  console.log(magic.getMime(pngFile));
+  console.log(magic.detect(pngFile));
 }
 
 main().catch((err) => console.error(err));
@@ -218,7 +218,7 @@ const { bytesRead, buffer } = await file.read({ buffer: Buffer.alloc(1024) });
 
 // We're assuming that largeFile.mp4 is >= 1024 bytes in size and our buffer
 // will only have the first 1024 bytes of largeFile.mp4 in it
-console.log(magic.getMime(buffer));
+console.log(magic.detect(buffer));
 await file.close();
 
 // outputs: video/mp4

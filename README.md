@@ -17,21 +17,31 @@ provides accurate filetype detection with zero prod dependencies.
 npm install wasmagic
 ```
 
-Detect the mime and encoding of something:
+Detect the mime of something:
 
 ```javascript
-const { WASMagic, WASMagicFlags } = require("wasmagic");
+import { WASMagic } from "wasmagic";
+
+const magic = await WASMagic.create();
+
+const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
+console.log(magic.getMime(pngFile));
+// outputs: image/png
+```
+
+CommonJS version:
+
+```javascript
+const { WASMagic } = require("wasmagic");
 
 async function main() {
-  const magic = await WASMagic.create({
-    flags: WASMagicFlags.MIME_TYPE | WASMagicFlags.MIME_ENCODING,
-  });
+  const magic = await WASMagic.create();
   const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
   console.log(magic.getMime(pngFile));
 }
 
 main().catch((err) => console.error(err));
-// outputs: image/png; charset=binary
+// outputs: image/png
 ```
 
 ### Options
@@ -68,7 +78,19 @@ Default options:
 ##### `flags`
 
 `flags` control `libmagic` behavior. To use the flags, import the `enum` from
-the module, [per the example above](#usage).
+the module, and pass the desired combination of flags:
+
+```javascript
+import { WASMagic, WASMagicFlags } from "wasmagic";
+
+const magic = await WASMagic.create({
+  flags: WASMagicFlags.MIME_TYPE | WASMagicFlags.MIME_ENCODING,
+});
+
+const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex");
+console.log(magic.getMime(pngFile));
+// outputs: image/png; charset=binary
+```
 
 [Please refer to the code for the flag definitions](src/index.ts#L5)
 
@@ -94,7 +116,7 @@ As these are passed as `Uint8Array`s, custom definitions can be loaded from
 a file, or embedded directly in your code. For example:
 
 ```javascript
-const { WASMagic } = require("wasmagic");
+import { WASMagic } from "wasmagic";
 
 const foobarMagic = Buffer.from(
   `
@@ -103,24 +125,21 @@ const foobarMagic = Buffer.from(
 `,
 );
 
-async function main() {
-  const magic = await WASMagic.create({
-    magicFiles: [foobarMagic],
-  });
+const magic = await WASMagic.create({
+  magicFiles: [foobarMagic],
+});
 
-  console.log(
-    magic.getMime(
-      Buffer.from(
-        `FOOBARFILETYPE
+console.log(
+  magic.getMime(
+    Buffer.from(
+      `FOOBARFILETYPE
 
 Some made up stuff
 `,
-      ),
     ),
-  );
-}
+  ),
+);
 
-main().catch((err) => console.error(err));
 // outputs: foobarfiletype
 ```
 
@@ -154,8 +173,11 @@ If you want to offload processing to another thread (and in production workloads
 you probably should be), take a look at the [Async / Worker
 threads](examples/worker/) example.
 
+---
+
 If you aren't passing your instantiated dependencies down in your application,
-and are trying to use this as a global, try something like the following:
+and you aren't using Javascript modules (or Typescript), and are trying to use
+this as a global, try something like the following for a CommonJS style module:
 
 ```javascript
 const { WASMagic } = require("wasmagic");
@@ -185,21 +207,20 @@ To ensure that your application remains performant, either load only the head
 of the file you want to detect, or slice the head off of a file buffer:
 
 ```javascript
-const { WASMagic } = require("wasmagic");
-const fs = require("fs/promises");
+import { WASMagic } from "wasmagic";
+import * as fs from "fs/promises";
 
-async function main() {
-  const magic = await WASMagic.create();
-  const file = await fs.open("largeFile.mp4");
-  // Only read the first 1024 bytes of our large file
-  const { bytesRead, buffer } = await file.read({ buffer: Buffer.alloc(1024) });
-  // We're assuming that largeFile.mp4 is >= 1024 bytes in size and our buffer
-  // will only have the first 1024 bytes of largeFile.mp4 in it
-  console.log(magic.getMime(buffer));
-  await file.close();
-}
+const magic = await WASMagic.create();
+const file = await fs.open("largeFile.mp4");
 
-main().catch((err) => console.error(err));
+// Only read the first 1024 bytes of our large file
+const { bytesRead, buffer } = await file.read({ buffer: Buffer.alloc(1024) });
+
+// We're assuming that largeFile.mp4 is >= 1024 bytes in size and our buffer
+// will only have the first 1024 bytes of largeFile.mp4 in it
+console.log(magic.getMime(buffer));
+await file.close();
+
 // outputs: video/mp4
 ```
 

@@ -85,10 +85,16 @@ docker-builder-run: docker-builder-build
 		/bin/bash -c "cd /app && make dist/libmagic-wrapper.js"
 
 fmt: $(ts_files) $(fmt_files)
-	npx --no-install prettier --ignore-path .gitignore -w $(ts_files) $(fmt_files)
+	./node_modules/.bin/biome format --write $(ts_files) $(fmt_files)
 
 fmt-check: $(ts_files) $(fmt_files)
-	npx --no-install prettier --ignore-path .gitignore -c $(ts_files) $(fmt_files)
+	./node_modules/.bin/biome format $(ts_files) $(fmt_files)
+
+lint: $(ts_files) $(fmt_files)
+	./node_modules/.bin/biome lint --apply $(ts_files) $(fmt_files)
+
+lint-check: $(ts_files) $(fmt_files)
+	./node_modules/.bin/biome lint $(ts_files) $(fmt_files)
 
 update-dependencies:
 	directories=("." "examples/worker" "examples/stream-detection"); \

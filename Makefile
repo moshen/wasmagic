@@ -22,7 +22,7 @@ dist/index.js: $(ts_files) dist/libmagic-wrapper.js
 dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magic.mgc dist/libmagic.so dist/libmagic-wrapper.d.ts
 	emcc -s MODULARIZE -s WASM=1 \
 	-s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "FS"]' \
-	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_get_mime", "_malloc", "_free"]' \
+	-s EXPORTED_FUNCTIONS='["_magic_wrapper_load", "_magic_wrapper_detect", "_malloc", "_free"]' \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	--pre-js ./src/pre.js \
 	--embed-file ./dist/magic.mgc@/magic/magic.mgc \

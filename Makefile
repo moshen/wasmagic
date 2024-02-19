@@ -2,7 +2,7 @@
 SHELL := bash
 
 ts_files := $(wildcard src/*.ts src/test/integration/*.ts types/*.ts)
-fmt_files := $(shell echo examples/{worker,stream-detection}/*.{js,md} .github/workflows/*.yml *.js{,on} *.md src/*.js)
+fmt_files := $(shell echo examples/{worker/*.{mjs,md},stream-detection/*.{js,md}} .github/workflows/*.yml *.js{,on} *.md src/*.js)
 num_processors := $(shell nproc || printf "1")
 
 export EMCC_CFLAGS = -msimd128 -O2

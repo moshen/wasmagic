@@ -24,5 +24,5 @@ npm install
 Run:
 
 ```bash
-node index.js
+node index.mjs
 ```

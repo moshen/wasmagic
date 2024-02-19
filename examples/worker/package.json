@@ -2,7 +2,7 @@
   "name": "wasmagic-worker-example",
   "version": "0.0.0-dev",
   "description": "Example using worker threads with WASMagic",
-  "main": "index.js",
+  "main": "index.mjs",
   "author": "Colin Kennedy <moshen.colin@gmail.com>",
   "private": true,
   "license": "BSD-2-Clause",

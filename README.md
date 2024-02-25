@@ -6,8 +6,9 @@
 ## About
 
 A [WebAssembly](https://webassembly.org/) compiled version of
-[libmagic](https://www.darwinsys.com/file/) with a simple API for Node. WASMagic
-provides accurate filetype detection with zero prod dependencies.
+[libmagic](https://www.darwinsys.com/file/) with a simple API for Node, Bun, or
+Deno. WASMagic provides accurate filetype detection with zero
+prod dependencies.
 
 ## Usage
 
@@ -17,8 +18,7 @@ provides accurate filetype detection with zero prod dependencies.
 npm install wasmagic
 ```
 
-Detect the mime of something:
-
+Detect the mime of something in Node, or Bun:
 ```javascript
 import { WASMagic } from "wasmagic";
 
@@ -29,8 +29,7 @@ console.log(magic.detect(pngFile));
 // outputs: image/png
 ```
 
-CommonJS version:
-
+CommonJS version in Node, or Bun:
 ```javascript
 const { WASMagic } = require("wasmagic");
 
@@ -43,6 +42,30 @@ async function main() {
 main().catch((err) => console.error(err));
 // outputs: image/png
 ```
+
+Deno:
+```javascript
+import { WASMagic } from "npm:wasmagic";
+const magic = await WASMagic.create();
+const pngFile = Uint8Array.from([
+  0x89,  0x50,  0x4e,  0x47,  0x0d,  0x0a,  0x1a,  0x0a,
+  0x00,  0x00,  0x00,  0x0d,  0x49,  0x48,  0x44,  0x52
+]);
+console.log(magic.getMime(pngFile));
+// outputs: image/png
+```
+
+Run with permissions:
+```shell
+deno run \
+  --allow-read="myscript.js,$PWD/node_modules/.deno/wasmagic@0.2.0/node_modules/wasmagic/dist/libmagic-wrapper.wasm" \
+  myscript.js
+```
+
+WASMagic *should* also work in modern browsers by using a packaging utility like
+[Rollup](https://rollupjs.org/) or [Webpack](https://webpack.js.org/), however
+this isn't tested, and requires downloading the WASM payload which is currently
+1.6MB.
 
 ### Options
 

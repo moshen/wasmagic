@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { glob } from "glob";
 import { cases } from "./data";
-import { WASMagic, WASMagicFlags } from "../../index";
+import { WASMagic, WASMagicFlags, StdioOverrideFunction } from "../../index";
 
 describe("WASMagic", () => {
   describe("Default magic file", () => {
@@ -49,6 +49,24 @@ describe("WASMagic", () => {
         expect(magicText.detect(fileBuf)).toBe(expectedText);
       },
     );
+
+    test("WASMagic throws when it fails to load", async () => {
+      let err: Error | undefined;
+      try {
+        await WASMagic.create({
+          loadDefaultMagicfile: false,
+          magicFiles: [
+            // To force a loading failure
+            Buffer.from("FOOOOOOOBAR"),
+          ],
+        });
+      } catch (_err) {
+        err = _err as Error;
+      }
+
+      expect(err).toBeInstanceOf(Error);
+      expect(err?.message.startsWith("WASMagic Load Error: ")).toBe(true);
+    });
   });
 
   describe("Specified foobar custom magic file, with default magic file", () => {
@@ -111,5 +129,38 @@ Some made up stuff
         expect(magic.detect(fs.readFileSync(file))).toBe("text/plain");
       },
     );
+  });
+
+  describe("StdioOverrideFunction", () => {
+    describe("StdioOverrideFunction fires when WASMagic fails to load", () => {
+      let stdioType: string | undefined;
+      let text: string | undefined;
+      const stdio: StdioOverrideFunction = (_stdioType, _text) => {
+        stdioType = _stdioType;
+        text = _text;
+      };
+
+      beforeAll(async () => {
+        try {
+          await WASMagic.create({
+            loadDefaultMagicfile: false,
+            magicFiles: [
+              // To force a loading failure
+              Buffer.from("FOOOOOOOBAR"),
+            ],
+            stdio,
+          });
+        } catch (_err) {
+          // Ignoring _err
+        }
+      });
+
+      test("stdioType is a String", () =>
+        expect(typeof stdioType).toBe("string"));
+      test("stdioType is stderr", () => expect(stdioType).toBe("stderr"));
+      test("text is a String", () => expect(typeof text).toBe("string"));
+      test("text is a known error", () =>
+        expect(text).toBe("0, 1: Warning: offset `FOOOOOOOBAR' invalid"));
+    });
   });
 });

@@ -1,7 +1,4 @@
-type StdioOverrideFunction = (
-  stdioName: "stdout" | "stderr",
-  text: string,
-) => void;
+import StdioOverrideFunction from "./StdioOverrideFunction";
 
 interface LibmagicModule extends EmscriptenModule {
   FS: typeof FS;
@@ -9,3 +6,5 @@ interface LibmagicModule extends EmscriptenModule {
   cwrap: typeof cwrap;
   printOverride: StdioOverrideFunction;
 }
+
+export default LibmagicModule;

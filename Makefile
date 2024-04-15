@@ -16,7 +16,7 @@ dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/int
 
 package: dist/index.js dist/libmagic.LICENSE
 
-dist/index.js: $(ts_files) dist/libmagic-wrapper.js
+dist/index.js: $(ts_files) dist/libmagic-wrapper.js dist/LibmagicModule.d.ts dist/StdioOverrideFunction.d.ts
 	npx tsc -d
 
 dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magic.mgc dist/libmagic.so dist/libmagic-wrapper.d.ts
@@ -31,8 +31,14 @@ dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magic.mgc dist/libmagic.so
 	-o dist/libmagic-wrapper.js \
 	src/libmagic-wrapper.c
 
-dist/libmagic-wrapper.d.ts: types/libmagic-wrapper.d.ts
-	cp types/libmagic-wrapper.d.ts dist/libmagic-wrapper.d.ts
+dist/libmagic-wrapper.d.ts: src/libmagic-wrapper.d.ts
+	cp src/libmagic-wrapper.d.ts dist/libmagic-wrapper.d.ts
+
+dist/LibmagicModule.d.ts: src/LibmagicModule.d.ts
+	cp src/LibmagicModule.d.ts dist/LibmagicModule.d.ts
+
+dist/StdioOverrideFunction.d.ts: src/StdioOverrideFunction.d.ts
+	cp src/StdioOverrideFunction.d.ts dist/StdioOverrideFunction.d.ts
 
 dist/libmagic.LICENSE: vendor/file/COPYING
 	cp vendor/file/COPYING dist/libmagic.LICENSE

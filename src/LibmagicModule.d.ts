@@ -1,4 +1,4 @@
-import StdioOverrideFunction from "./StdioOverrideFunction";
+import type StdioOverrideFunction from "./StdioOverrideFunction";
 
 interface LibmagicModule extends EmscriptenModule {
   FS: typeof FS;

@@ -104,7 +104,7 @@ export class WASMagic {
 
     const magicPaths: string[] = [];
 
-    // Write each magic file to the interal WASM filesystem
+    // Write each magic file to the internal WASM filesystem
     for (let i = 0; i < options.magicFiles.length; i++) {
       Module.FS.writeFile(`/magic/${i}`, options.magicFiles[i]);
       magicPaths.push(`${i}`);
@@ -125,7 +125,7 @@ export class WASMagic {
       throw new Error(`WASMagic Load Error: ${loadErr}`);
     }
 
-    // Remove each magic file from the interal WASM filesystem
+    // Remove each magic file from the internal WASM filesystem
     // This frees available memory
     for (let i = 0; i < options.magicFiles.length; i++) {
       Module.FS.unlink(`/magic/${i}`);

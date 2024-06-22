@@ -1,7 +1,7 @@
-import * as fs from "fs/promises";
-import * as assert from "assert";
-import * as path from "path";
-import * as os from "os";
+import * as fs from "node:fs/promises";
+import * as assert from "node:assert";
+import * as path from "node:path";
+import * as os from "node:os";
 import { Piscina } from "piscina";
 
 import { cases as testCases } from "../../dist/test/integration/data.js";

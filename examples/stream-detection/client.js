@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { Readable } = require("stream");
+const { Readable } = require("node:stream");
 const pngFile = Buffer.from("89504E470D0A1A0A0000000D49484452", "hex"); // png header
 const zeros = Buffer.alloc(1024 * 16, 0); // Fill a 16KB buffer with zeros
 
@@ -46,8 +46,8 @@ async function postData(sourceBuf, maxSendBytes) {
       url: "http://localhost:3000/file",
       headers: { "Content-Type": "application/octet-stream" },
       data,
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
+      maxContentLength: Number.POSITIVE_INFINITY,
+      maxBodyLength: Number.POSITIVE_INFINITY,
     });
 
     end = process.hrtime.bigint();

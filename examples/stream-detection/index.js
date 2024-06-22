@@ -1,5 +1,5 @@
 const { WASMagic } = require("../../");
-const { Transform, Writable, pipeline } = require("stream");
+const { Transform, Writable, pipeline } = require("node:stream");
 const express = require("express");
 const app = express();
 const maxAcceptNonPngBytes = 1024 * 1024 * 100; // 100MB

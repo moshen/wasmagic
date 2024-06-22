@@ -1,8 +1,12 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { glob } from "glob";
 import { cases } from "./data";
-import { WASMagic, WASMagicFlags, StdioOverrideFunction } from "../../index";
+import {
+  WASMagic,
+  WASMagicFlags,
+  type StdioOverrideFunction,
+} from "../../index";
 
 describe("WASMagic", () => {
   describe("Default magic file", () => {

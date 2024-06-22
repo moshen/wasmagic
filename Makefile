@@ -17,7 +17,7 @@ dist/test/integration/foobar_magic dist/test/integration/png_magic dist/test/int
 package: dist/index.js dist/libmagic.LICENSE
 
 dist/index.js: $(ts_files) dist/libmagic-wrapper.js dist/LibmagicModule.d.ts dist/StdioOverrideFunction.d.ts
-	npx tsc -d
+	node ./node_modules/.bin/tsc -d
 
 dist/libmagic-wrapper.js: src/libmagic-wrapper.c dist/magic.mgc dist/libmagic.so dist/libmagic-wrapper.d.ts
 	emcc -s MODULARIZE -s WASM=1 \
@@ -97,7 +97,7 @@ fmt-check: $(ts_files) $(fmt_files)
 	./node_modules/.bin/biome format $(ts_files) $(fmt_files)
 
 lint: $(ts_files) $(fmt_files)
-	./node_modules/.bin/biome lint --apply $(ts_files) $(fmt_files)
+	./node_modules/.bin/biome lint --write $(ts_files) $(fmt_files)
 
 lint-check: $(ts_files) $(fmt_files)
 	./node_modules/.bin/biome lint $(ts_files) $(fmt_files)

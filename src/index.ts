@@ -1,6 +1,6 @@
 import libmagicFactory from "./libmagic-wrapper";
-import LibmagicModule from "./LibmagicModule";
-import StdioOverrideFunction from "./StdioOverrideFunction";
+import type LibmagicModule from "./LibmagicModule";
+import type StdioOverrideFunction from "./StdioOverrideFunction";
 export { default as StdioOverrideFunction } from "./StdioOverrideFunction";
 
 declare function wrappedDetect(bufPointer: number, bufLength: number): string;

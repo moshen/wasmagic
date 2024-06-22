@@ -115,7 +115,7 @@ console.log(magic.detect(pngFile));
 // outputs: image/png; charset=binary
 ```
 
-[Please refer to the code for the flag definitions](src/index.ts#L5)
+[Please refer to the code for the flag definitions](src/index.ts#L8)
 
 **Default**: `WASMagicFlags.MIME_TYPE`
 
@@ -263,9 +263,10 @@ to detect, be sure to test example files.
 
 ### Detected filetypes
 
-WASMagic includes the default magic file which enables detection any file type
-[detected by libmagic](https://github.com/file/file/tree/master/magic/Magdir),
-which is over 1500 mime types. For comparison; the
+WASMagic includes the default magic file which enables detection of any file
+type [detected by
+libmagic](https://github.com/file/file/tree/master/magic/Magdir), which (at time
+of writing) is over 1500 mime types. For comparison; the
 [file-type](https://www.npmjs.com/package/file-type) library supports 138 types.
 
 Specifically, WASMagic will accurately detect all types of Microsoft Office

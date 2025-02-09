@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:3.1.61
+FROM emscripten/emsdk:4.0.3
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \

@@ -19,14 +19,14 @@
   },
   "author": "Colin Kennedy <moshen.colin@gmail.com>",
   "devDependencies": {
-    "@biomejs/biome": "^1.8.2",
-    "@types/emscripten": "^1.39.13",
+    "@biomejs/biome": "^1.9.4",
+    "@types/emscripten": "^1.40.0",
     "@types/glob": "^8.1.0",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.8",
-    "glob": "^10.4.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.1",
+    "glob": "^11.0.1",
     "jest": "^29.7.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.7.3"
   },
   "engines": {
     "node": ">=16.4.0"

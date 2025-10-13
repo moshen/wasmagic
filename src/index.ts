@@ -69,6 +69,7 @@ export type WASMagicOptions = {
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: StdioOverrideFunction;
+  locateFile?: () => string,
 };
 
 type WASMagicOptionsComplete = {
@@ -89,7 +90,9 @@ export class WASMagic {
   static async create(
     options: WASMagicOptions = defaultWASMagicOptions,
   ): Promise<WASMagic> {
-    const Module = await libmagicFactory();
+    const Module = await libmagicFactory({
+        locateFile: options.locateFile,
+    });
     return new WASMagic(Module, options);
   }
 

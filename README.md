@@ -79,12 +79,16 @@ tests](src/test/integration/index.ts).
 #### `WASMagicOptions`
 
 ```typescript
+type ModuleOptions = {
+  locateFile?: (path: string, prefix: string) => string;
+};
+
 type WASMagicOptions = {
   flags?: WASMagicFlags;
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: (stdioName: "stdout" | "stderr", text: string) => void;
-  locateFile?: (path: string, prefix: string) => string;
+  moduleOptions?: ModuleOptions;
 };
 ```
 
@@ -179,7 +183,12 @@ development of this module.
 **Default**: `(_stdioName: "stdout" | "stderr", _text: string) => {}` (No
 output)
 
-##### `locateFile`
+##### `moduleOptions`
+
+`moduleOptions` is an optional object that allows you to pass configuration
+options directly to the underlying Emscripten WASM module.
+
+###### `moduleOptions.locateFile`
 
 `locateFile` is a `function` that allows you to customize how the WASM module
 locates the `libmagic-wrapper.wasm` file. This is particularly useful when
@@ -198,11 +207,13 @@ Example using a custom path:
 import { WASMagic } from "wasmagic";
 
 const magic = await WASMagic.create({
-  locateFile: (path, prefix) => {
-    if (path.endsWith(".wasm")) {
-      return `/custom/path/to/${path}`;
-    }
-    return prefix + path;
+  moduleOptions: {
+    locateFile: (path, prefix) => {
+      if (path.endsWith(".wasm")) {
+        return `/custom/path/to/${path}`;
+      }
+      return prefix + path;
+    },
   },
 });
 ```

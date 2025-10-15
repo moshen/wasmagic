@@ -84,6 +84,7 @@ type WASMagicOptions = {
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: (stdioName: "stdout" | "stderr", text: string) => void;
+  locateFile?: (path: string, prefix: string) => string;
 };
 ```
 
@@ -177,6 +178,36 @@ development of this module.
 
 **Default**: `(_stdioName: "stdout" | "stderr", _text: string) => {}` (No
 output)
+
+##### `locateFile`
+
+`locateFile` is a `function` that allows you to customize how the WASM module
+locates the `libmagic-wrapper.wasm` file. This is particularly useful when
+bundling with tools like Webpack or Rollup, or when deploying to environments
+where the default file resolution doesn't work.
+
+The function receives two parameters:
+- `path`: The filename being requested (e.g., `"libmagic-wrapper.wasm"`)
+- `prefix`: The default prefix path
+
+And should return the full URL or path to the WASM file.
+
+Example using a custom path:
+
+```javascript
+import { WASMagic } from "wasmagic";
+
+const magic = await WASMagic.create({
+  locateFile: (path, prefix) => {
+    if (path.endsWith(".wasm")) {
+      return `/custom/path/to/${path}`;
+    }
+    return prefix + path;
+  },
+});
+```
+
+**Default**: `undefined` (uses Emscripten's default file locator)
 
 ### Examples
 

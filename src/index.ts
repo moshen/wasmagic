@@ -69,7 +69,7 @@ export type WASMagicOptions = {
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: StdioOverrideFunction;
-  locateFile?: () => string,
+  locateFile?: (path: string, prefix: string) => string,
 };
 
 type WASMagicOptionsComplete = {

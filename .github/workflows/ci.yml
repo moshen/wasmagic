@@ -73,7 +73,10 @@ jobs:
     environment: Publish
     needs: [build, matrix-tests]
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' )
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v2
 
@@ -87,4 +90,3 @@ jobs:
         uses: moshen/merge-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

@@ -100,7 +100,7 @@ Default options:
   loadDefaultMagicfile: true,
   magicFiles: [],
   stdio: (_stdioName: "stdout" | "stderr", _text: string) => {}, 
-  moduleOptions: undefined,      
+  moduleOptions: undefined, 
 }
 ```
 

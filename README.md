@@ -99,7 +99,8 @@ Default options:
   flags: WASMagicFlags.MIME_TYPE,
   loadDefaultMagicfile: true,
   magicFiles: [],
-  stdio: (_stdioName: "stdout" | "stderr", _text: string) => {},
+  stdio: (_stdioName: "stdout" | "stderr", _text: string) => {}, 
+  moduleOptions: undefined,      
 }
 ```
 

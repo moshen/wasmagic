@@ -64,16 +64,14 @@ export enum WASMagicFlags {
   NO_CHECK_SIMH = 0x0800000,
 }
 
-type ModuleOptions = {
-    locateFile?: (path: string, prefix: string) => string,
-}
+export type LibmagicLocateFile = LibmagicModule["locateFile"];
 
 export type WASMagicOptions = {
   flags?: WASMagicFlags;
   loadDefaultMagicfile?: boolean;
   magicFiles?: Uint8Array[];
   stdio?: StdioOverrideFunction;
-  moduleOptions?: ModuleOptions;
+  locateFile?: LibmagicLocateFile;
 };
 
 type WASMagicOptionsComplete = {
@@ -94,7 +92,9 @@ export class WASMagic {
   static async create(
     options: WASMagicOptions = defaultWASMagicOptions,
   ): Promise<WASMagic> {
-    const Module = await libmagicFactory(options.moduleOptions);
+    const Module = await libmagicFactory({
+      locateFile: options.locateFile,
+    });
     return new WASMagic(Module, options);
   }
 

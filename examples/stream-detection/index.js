@@ -17,7 +17,7 @@ async function init() {
     let detectedMime;
 
     const detect = new Transform({
-      transform(chunk, encoding, cb) {
+      transform(chunk, _encoding, cb) {
         // Once we've detected the mime type, we'll just start forwarding the
         // data through
         if (isDetected) {
@@ -53,7 +53,7 @@ async function init() {
     const start = process.hrtime.bigint();
 
     const doSomething = new Writable({
-      write(chunk, encoding, cb) {
+      write(chunk, _encoding, cb) {
         processedBytes += chunk.length;
 
         if (detectedMime === "image/png") {

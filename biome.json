@@ -1,11 +1,9 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["src/pre.js"]
+    "includes": ["**", "!**/src/pre.js"]
   },
   "formatter": {
     "indentStyle": "space",

@@ -15,8 +15,15 @@ prod dependencies.
 [Install `wasmagic` from npm](https://www.npmjs.com/package/wasmagic):
 
 ```bash
-npm install wasmagic
+npm install -E wasmagic
 ```
+
+**Recommended exact version pinning**: This library follows `file` / `libmagic`
+releases and while we'll do our best to make sure this API loosely follows
+semver, the underlying `file` releases _are not semver_. So, in a similar
+fashion we will be incrementing patch for changes including `file` changes.
+This means this libraries releases are _not semver_. This probably won't matter
+for most users, but deserves an explicit call out.
 
 Detect the mime of something in Node, or Bun:
 ```javascript

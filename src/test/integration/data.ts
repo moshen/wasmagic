@@ -107,22 +107,22 @@ export const cases = [
   [
     "vendor/file-examples/2017/02/zip_10MB.zip",
     "application/zip",
-    "Zip archive data, at least v1.0 to extract, compression method=store",
+    "Zip archive data, made by v3.0 UNIX, extract using at least v1.0, last modified Oct 30 2017 22:35:16, uncompressed size 0, method=store",
   ],
   [
     "vendor/file-examples/2017/02/zip_2MB.zip",
     "application/zip",
-    "Zip archive data, at least v1.0 to extract, compression method=store",
+    "Zip archive data, made by v3.0 UNIX, extract using at least v1.0, last modified Oct 30 2017 22:36:16, uncompressed size 0, method=store",
   ],
   [
     "vendor/file-examples/2017/02/zip_5MB.zip",
     "application/zip",
-    "Zip archive data, at least v1.0 to extract, compression method=store",
+    "Zip archive data, made by v3.0 UNIX, extract using at least v1.0, last modified Oct 30 2017 22:36:16, uncompressed size 0, method=store",
   ],
   [
     "vendor/file-examples/2017/02/zip_9MB.zip",
     "application/zip",
-    "Zip archive data, at least v1.0 to extract, compression method=store",
+    "Zip archive data, made by v3.0 UNIX, extract using at least v1.0, last modified Oct 30 2017 22:35:42, uncompressed size 0, method=store",
   ],
   [
     "vendor/file-examples/2017/04/file_example_MP4_1280_10MG.mp4",
@@ -307,17 +307,17 @@ export const cases = [
   [
     "vendor/file-examples/2017/10/file_example_TIFF_10MB.tiff",
     "image/tiff",
-    "TIFF image data, little-endian, direntries=18, height=1301, bps=55502, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF.tiff, orientation=upper-left, width=1950",
+    "TIFF image data, little-endian, direntries=18, width=1950, height=1301, bps=55502, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF.tiff, orientation=upper-left",
   ],
   [
     "vendor/file-examples/2017/10/file_example_TIFF_1MB.tiff",
     "image/tiff",
-    "TIFF image data, little-endian, direntries=18, height=434, bps=14534, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF_1MB.tiff, orientation=upper-left, width=650",
+    "TIFF image data, little-endian, direntries=18, width=650, height=434, bps=14534, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF_1MB.tiff, orientation=upper-left",
   ],
   [
     "vendor/file-examples/2017/10/file_example_TIFF_5MB.tiff",
     "image/tiff",
-    "TIFF image data, little-endian, direntries=18, height=934, bps=53302, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF_5MB.tiff, orientation=upper-left, width=1400",
+    "TIFF image data, little-endian, direntries=18, width=1400, height=934, bps=53302, compression=none, PhotometricInterpretation=RGB, name=/home/marta/Desktop/www/file ex/files/grafa/tiff/file_example_TIFF_5MB.tiff, orientation=upper-left",
   ],
   [
     "vendor/file-examples/2017/10/file_example_favicon.ico",
@@ -517,21 +517,21 @@ export const cases = [
   [
     "vendor/file-examples/2020/03/file_example_WEBP_1500kB.webp",
     "image/webp",
-    "RIFF (little-endian) data, Web/P image, VP8 encoding, 5760x3840, Scaling: [none]x[none], YUV color, decoders should clamp",
+    "RIFF (little-endian) data, WebP image, VP8 encoding, 5760x3840, Scaling: [none]x[none], YUV color, decoders should clamp",
   ],
   [
     "vendor/file-examples/2020/03/file_example_WEBP_250kB.webp",
     "image/webp",
-    "RIFF (little-endian) data, Web/P image, VP8 encoding, 2800x1867, Scaling: [none]x[none], YUV color, decoders should clamp",
+    "RIFF (little-endian) data, WebP image, VP8 encoding, 2800x1867, Scaling: [none]x[none], YUV color, decoders should clamp",
   ],
   [
     "vendor/file-examples/2020/03/file_example_WEBP_500kB.webp",
     "image/webp",
-    "RIFF (little-endian) data, Web/P image, VP8 encoding, 3800x2534, Scaling: [none]x[none], YUV color, decoders should clamp",
+    "RIFF (little-endian) data, WebP image, VP8 encoding, 3800x2534, Scaling: [none]x[none], YUV color, decoders should clamp",
   ],
   [
     "vendor/file-examples/2020/03/file_example_WEBP_50kB.webp",
     "image/webp",
-    "RIFF (little-endian) data, Web/P image, VP8 encoding, 1050x700, Scaling: [none]x[none], YUV color, decoders should clamp",
+    "RIFF (little-endian) data, WebP image, VP8 encoding, 1050x700, Scaling: [none]x[none], YUV color, decoders should clamp",
   ],
 ];

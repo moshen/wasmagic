@@ -7,7 +7,7 @@
   "private": true,
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "axios": "^1.13.6",
+    "axios": "^1.19.0",
     "express": "^5.2.1"
   }
 }

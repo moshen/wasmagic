@@ -45,13 +45,14 @@ describe("WASMagic", () => {
       console.log(JSON.stringify(out, undefined, 2));
     });
 
-    test.each(
-      cases,
-    )("%s identified as %s", (file, expectedOutput, expectedText) => {
-      const fileBuf = fs.readFileSync(file);
-      expect(magic.detect(fileBuf)).toBe(expectedOutput);
-      expect(magicText.detect(fileBuf)).toBe(expectedText);
-    });
+    test.each(cases)(
+      "%s identified as %s",
+      (file, expectedOutput, expectedText) => {
+        const fileBuf = fs.readFileSync(file);
+        expect(magic.detect(fileBuf)).toBe(expectedOutput);
+        expect(magicText.detect(fileBuf)).toBe(expectedText);
+      },
+    );
 
     test("WASMagic throws when it fails to load", async () => {
       let err: Error | undefined;
@@ -96,11 +97,12 @@ Some made up stuff
     });
 
     const pngOrJpeg = ["image/png", "image/jpeg"];
-    test.each(
-      cases.filter((v) => pngOrJpeg.includes(v[1])),
-    )("%s identified as %s", (file, expectedOutput) => {
-      expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
-    });
+    test.each(cases.filter((v) => pngOrJpeg.includes(v[1])))(
+      "%s identified as %s",
+      (file, expectedOutput) => {
+        expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
+      },
+    );
   });
 
   describe("Specified png and jpeg magic files, no default magic file", () => {
@@ -117,18 +119,20 @@ Some made up stuff
     });
 
     const pngOrJpeg = ["image/png", "image/jpeg"];
-    test.each(
-      cases.filter((v) => pngOrJpeg.includes(v[1])),
-    )("%s identified as %s", (file, expectedOutput) => {
-      expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
-    });
+    test.each(cases.filter((v) => pngOrJpeg.includes(v[1])))(
+      "%s identified as %s",
+      (file, expectedOutput) => {
+        expect(magic.detect(fs.readFileSync(file))).toBe(expectedOutput);
+      },
+    );
 
     const rtfOrHtml = ["text/rtf", "text/html"];
-    test.each(
-      cases.filter((v) => rtfOrHtml.includes(v[1])),
-    )("%s identified as text/plain", (file) => {
-      expect(magic.detect(fs.readFileSync(file))).toBe("text/plain");
-    });
+    test.each(cases.filter((v) => rtfOrHtml.includes(v[1])))(
+      "%s identified as text/plain",
+      (file) => {
+        expect(magic.detect(fs.readFileSync(file))).toBe("text/plain");
+      },
+    );
   });
 
   describe("StdioOverrideFunction", () => {

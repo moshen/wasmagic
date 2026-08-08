@@ -7,6 +7,6 @@
   "private": true,
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "piscina": "^5.1.4"
+    "piscina": "^5.3.0"
   }
 }

@@ -6,7 +6,7 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
       - name: Set variables
         run: |
@@ -16,12 +16,12 @@ jobs:
           echo "EMSDK_VERSION=$EMSDK_VERSION" >> $GITHUB_ENV
 
       - name: Cache build artifacts
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: dist
           key: cache-build-artifacts-${{ github.sha }}
 
-      - uses: mymindstorm/setup-emsdk@v10
+      - uses: mymindstorm/setup-emsdk@v15
         with:
           version: ${{ env.EMSDK_VERSION }}
 
@@ -31,7 +31,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends autoconf automake libtool
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -49,16 +49,16 @@ jobs:
       matrix:
         node_version: [18, 20, 22]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
       - name: Cache build artifacts
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: dist
           key: cache-build-artifacts-${{ github.sha }}
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node_version }}
 
@@ -78,10 +78,10 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
       - name: Cache build artifacts
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: dist
           key: cache-build-artifacts-${{ github.sha }}
